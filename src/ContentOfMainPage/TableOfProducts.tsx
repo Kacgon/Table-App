@@ -6,7 +6,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import useApiHook from "../hooks/use-api.hook";
-import { Product } from "../props/product";
+import { Product } from "../type/product";
 import {
   Box,
   Button,
@@ -287,6 +287,7 @@ export default function TableOfProducts() {
                             <Avatar
                               variant="rounded"
                               alt={`Photo of${row.title} `}
+                              className="avatar-style"
                               style={{
                                 width: "90px",
                                 height: "100px",

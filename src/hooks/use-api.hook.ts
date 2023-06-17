@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { instance } from "../api";
-import { Product } from "../props/product";
+import { Product } from "../type/product";
 
 const useApiHook = (url: string) => {
   const [data, setData] = useState<Product[] | null>();

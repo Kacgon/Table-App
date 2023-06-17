@@ -1,7 +1,11 @@
 import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
-import { BreadCrumbsComponentProps } from "../props/breadcrumbsprops";
+
+export type BreadCrumbsComponentProps = {
+  elements: string[];
+  handleBreadCrumbClick: (message: string) => void;
+};
 
 export default function BreadCrumbsComponent({
   elements,

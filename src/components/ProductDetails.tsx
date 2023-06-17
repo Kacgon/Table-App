@@ -1,4 +1,5 @@
 import {
+  Box,
   Card,
   CardActionArea,
   CardContent,
@@ -7,7 +8,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { Product } from "../props/product";
+import { Product } from "../type/product";
 import { useState } from "react";
 
 export function ProductDetailsComponent({
@@ -51,8 +52,8 @@ export function ProductDetailsComponent({
                   onClick={changeDisplayedImg}
                   alt={productInfo?.title}
                 />
-                <div
-                  style={{
+                <Box
+                  sx={{
                     display: "flex",
                     justifyContent: "space-around",
                     paddingBottom: "5px",
@@ -61,7 +62,7 @@ export function ProductDetailsComponent({
                   <Typography sx={{ color: "gray", fontWeight: "600" }}>
                     Click to change image
                   </Typography>
-                </div>
+                </Box>
               </>
             ) : (
               <CardMedia
