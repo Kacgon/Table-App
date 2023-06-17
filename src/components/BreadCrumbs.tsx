@@ -1,13 +1,11 @@
 import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
-import { BreadCrumbsComponentProps } from "../models/breadcrumbsprops";
+import { BreadCrumbsComponentProps } from "../props/breadcrumbsprops";
 
 export default function BreadCrumbsComponent({
-  searchPhrase,
   elements,
   handleBreadCrumbClick,
-  handleSearchBreadCrumbClick,
 }: BreadCrumbsComponentProps) {
   
   return (
@@ -29,9 +27,6 @@ export default function BreadCrumbsComponent({
                 underline="hover"
                 sx={{ cursor: "pointer" }}
                 color="inherit"
-                onClick={() =>
-                  handleSearchBreadCrumbClick(element, searchPhrase)
-                }
               >
                 {element}
               </Link>

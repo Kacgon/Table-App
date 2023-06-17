@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { instance } from "../enum/api";
-import { Item } from "../models/item";
+import { instance } from "../api";
+import { Product } from "../props/product";
 
 const useApiHook = (url: string) => {
-  const [data, setData] = useState<Item[] | null>();
+  const [data, setData] = useState<Product[] | null>();
   const [totalProducts, setTotalProducts] = useState<number>(0);
 
   useEffect(() => {

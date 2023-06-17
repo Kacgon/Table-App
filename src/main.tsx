@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import TableOfProducts from "./pages/TableOfProducts";
+import TableOfProducts from "./ContentOfMainPage/TableOfProducts";
 import "./styles/index.css";
 import FooterComponent from "./components/Footer";
 import HeaderComponent from "./components/Header";

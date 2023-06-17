@@ -7,23 +7,19 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { Item } from "../models/item";
+import { Product } from "../props/product";
 import { useState } from "react";
 
 export function ProductDetailsComponent({
   productInfo,
 }: {
-  productInfo: Item | null;
+  productInfo: Product | null;
 }) {
   const [imgIndex, setImgIndex] = useState(0);
 
   function changeDisplayedImg() {
-    if (imgIndex < 2 && imgIndex >= 0) {
-      setImgIndex(imgIndex + 1);
-    } else {
-      setImgIndex(imgIndex - 1);
-    }
-  }
+    setImgIndex(imgIndex < 2 && imgIndex >= 0 ? imgIndex + 1 : imgIndex -1);
+ }
 
   return (
     <>

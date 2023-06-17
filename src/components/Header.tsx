@@ -1,3 +1,5 @@
+import { Box } from "@mui/material";
+
 export default function HeaderComponent() {
-  return <div style={{ backgroundColor: "#d28e19", height: "10px" }}></div>;
+  return <Box sx={{ backgroundColor: "#d28e19", height: "10px" }}></Box>;
 }

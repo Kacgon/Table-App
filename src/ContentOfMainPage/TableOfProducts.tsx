@@ -5,8 +5,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import useApiHook from "../hooks/ApiHook";
-import { Item } from "../models/item";
+import useApiHook from "../hooks/use-api.hook";
+import { Product } from "../props/product";
 import {
   Box,
   Button,
@@ -21,9 +21,9 @@ import {
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { ProductDetailsComponent } from "../components/ProductDetails";
-import { useNotification } from "../hooks/Notification";
+import { useNotification } from "../hooks/use-notification.hook";
 import { ToastContainer } from "react-toastify";
-import HeaderInfo from "./HeaderInfo";
+import HeaderInfo from "../components/HeaderInfo";
 import { Avatar, Typography } from "@material-ui/core";
 import SearchIcon from "@mui/icons-material/Search";
 import { AppBar } from "@mui/material";
@@ -40,7 +40,7 @@ export default function TableOfProducts() {
     `${headOfUrl}skip=${perPage * 0}&limit=${perPage}`
   );
   const [openDetails, setOpenDetails] = useState(false);
-  const [dataForDetails, setDataForDetails] = useState<Item | null>(null);
+  const [dataForDetails, setDataForDetails] = useState<Product | null>(null);
   const { data, totalProducts } = useApiHook(url);
   const { success, failure } = useNotification();
   const [arrayOfCrumbs, setArrayOfCrumbs] = useState(["Products"]);
@@ -75,21 +75,12 @@ export default function TableOfProducts() {
     }
   };
 
-  function handleSearchBreadCrumbClick(
-    message: string,
-    phraseToSearch: string
-  ) {
-    let index = arrayOfCrumbs.indexOf(message);
-    setDataForDetails(null);
-    setPerPage(6);
-    setHeadOfUrl(`products/search?q=${phraseToSearch}&`);
-    setUrl(`products/search?q=${phraseToSearch}&skip=0&limit=6`);
-    arrayOfCrumbs.splice(index + 1);
-    setOpenDetails(false);
-  }
-
   function handleBreadCrumbClick(message: string) {
     let index = arrayOfCrumbs.indexOf(message);
+    const indexOfSearchToRemove = arrayOfCrumbs.indexOf('search')
+    if (indexOfSearchToRemove > -1) { 
+      arrayOfCrumbs.splice(indexOfSearchToRemove, 1);
+    }
     setDataForDetails(null);
     setPerPage(6);
     setHeadOfUrl(`products/category/${message}?`);
@@ -114,11 +105,15 @@ export default function TableOfProducts() {
   function handeleDetailsButton(
     category: string,
     item: string,
-    dataForDetails: Item
+    dataForDetails: Product
   ) {
     success(`Displaying details for ${item}`);
     setDataForDetails(dataForDetails);
     setOpenDetails(true);
+    const indexOfSearchToRemove = arrayOfCrumbs.indexOf('search')
+    if (indexOfSearchToRemove > -1) { 
+      arrayOfCrumbs.splice(indexOfSearchToRemove, 1);
+    }
     if (!arrayOfCrumbs.includes(item && category)) {
       setArrayOfCrumbs((arrayOfCrumbs) => [...arrayOfCrumbs, category, item]);
     } else {
@@ -175,8 +170,6 @@ export default function TableOfProducts() {
           <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
             <BreadCrumbsComponent
               elements={arrayOfCrumbs}
-              handleSearchBreadCrumbClick={handleSearchBreadCrumbClick}
-              searchPhrase={searchPhrase}
               handleBreadCrumbClick={handleBreadCrumbClick}
             />
             {arrayOfCrumbs.length < 2 ? (
@@ -234,7 +227,7 @@ export default function TableOfProducts() {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {data?.map((row: Item) => (
+                      {data?.map((row: Product) => (
                         <TableRow
                           onClick={() => setChosenRow(row.id)}
                           key={row.id}
