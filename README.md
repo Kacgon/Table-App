@@ -3,3 +3,5 @@ content of .env => VITE_apiEndpoint="https://dummyjson.com"
 to start: 
 npm install
 npm run dev
+
+Used in project: react, material ui, axios
