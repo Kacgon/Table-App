@@ -18,7 +18,7 @@ import {
   SelectChangeEvent,
   TextField,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useState, ChangeEvent } from "react";
 import Header from "../components/Header";
 import { ProductDetailsComponent } from "../components/ProductDetails";
 import { useNotification } from "../hooks/use-notification.hook";
@@ -89,17 +89,17 @@ export default function TableOfProducts() {
     setOpenDetails(false);
   }
 
-  const handlePaginationChange = (previous: number, next: number) => {
-    setUrl(`${headOfUrl}skip=${previous * perPage}&limit=${perPage}`);
-    setUrl(`${headOfUrl}skip=${(next - 1) * perPage}&limit=${perPage}`);
-    setCurrentPage(previous);
-    setCurrentPage(next);
+  const handlePaginationChange = (event: ChangeEvent<unknown>, page: number) => {
+    setUrl(`${headOfUrl}skip=${page * perPage}&limit=${perPage}`);
+    setUrl(`${headOfUrl}skip=${(page - 1) * perPage}&limit=${perPage}`);
+    setCurrentPage(page);
+    setCurrentPage(page);
   };
 
   const handleRowsChange = (event: SelectChangeEvent<number>) => {
     setUrl(`${headOfUrl}skip=${0 * perPage}&limit=${event.target.value}`);
     setCurrentPage(1);
-    setPerPage(event.target.value);
+    setPerPage(event.target.value as number);
   };
 
   function handeleDetailsButton(
