@@ -1,14 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import TableOfProducts from "./ContentOfMainPage/TableOfProducts";
-import "./styles/index.css";
-import FooterComponent from "./components/Footer";
-import HeaderComponent from "./components/Header";
+import App from './App'
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <HeaderComponent />
-    <TableOfProducts />
-    <FooterComponent />
+    <App/>
   </React.StrictMode>
 );

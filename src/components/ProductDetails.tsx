@@ -8,7 +8,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { Product } from "../type/product";
+import { Product } from "../models/product";
 import { useState } from "react";
 
 export function ProductDetailsComponent({

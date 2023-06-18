@@ -5,8 +5,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import useApiHook from "../hooks/use-api.hook";
-import { Product } from "../type/product";
+import useApiHook from "./use-api.hook";
+import { Product } from "../models/product";
 import {
   Box,
   Button,
@@ -21,14 +21,13 @@ import {
 import { useEffect, useState, ChangeEvent } from "react";
 import Header from "../components/Header";
 import { ProductDetailsComponent } from "../components/ProductDetails";
-import { useNotification } from "../hooks/use-notification.hook";
+import { useNotification } from "./use-notification.hook";
 import { ToastContainer } from "react-toastify";
 import HeaderInfo from "../components/HeaderInfo";
 import { Avatar, Typography } from "@material-ui/core";
 import SearchIcon from "@mui/icons-material/Search";
 import { AppBar } from "@mui/material";
 import { Toolbar } from "@material-ui/core";
-import "../styles/searchbar.css";
 import BreadCrumbsComponent from "../components/BreadCrumbs";
 
 export default function TableOfProducts() {
@@ -77,8 +76,8 @@ export default function TableOfProducts() {
 
   function handleBreadCrumbClick(message: string) {
     let index = arrayOfCrumbs.indexOf(message);
-    const indexOfSearchToRemove = arrayOfCrumbs.indexOf('search')
-    if (indexOfSearchToRemove > -1) { 
+    const indexOfSearchToRemove = arrayOfCrumbs.indexOf("search");
+    if (indexOfSearchToRemove > -1) {
       arrayOfCrumbs.splice(indexOfSearchToRemove, 1);
     }
     setDataForDetails(null);
@@ -89,7 +88,10 @@ export default function TableOfProducts() {
     setOpenDetails(false);
   }
 
-  const handlePaginationChange = (event: ChangeEvent<unknown>, page: number) => {
+  const handlePaginationChange = (
+    event: ChangeEvent<unknown>,
+    page: number
+  ) => {
     setUrl(`${headOfUrl}skip=${page * perPage}&limit=${perPage}`);
     setUrl(`${headOfUrl}skip=${(page - 1) * perPage}&limit=${perPage}`);
     setCurrentPage(page);
@@ -110,20 +112,25 @@ export default function TableOfProducts() {
     success(`Displaying details for ${item}`);
     setDataForDetails(dataForDetails);
     setOpenDetails(true);
-    const indexOfSearchToRemove = arrayOfCrumbs.indexOf('search')
-    if (indexOfSearchToRemove > -1) { 
+    const indexOfSearchToRemove = arrayOfCrumbs.indexOf("search");
+    if (indexOfSearchToRemove > -1) {
       arrayOfCrumbs.splice(indexOfSearchToRemove, 1);
     }
     if (!arrayOfCrumbs.includes(item && category)) {
-      setArrayOfCrumbs((arrayOfCrumbs) => [...arrayOfCrumbs, category, item]);
-    } else {
-      setArrayOfCrumbs((arrayOfCrumbs) => [...arrayOfCrumbs, item]);
+      return setArrayOfCrumbs((arrayOfCrumbs) => [
+        ...arrayOfCrumbs,
+        category,
+        item,
+      ]);
+    }
+    if (!arrayOfCrumbs.includes(item)) {
+      return setArrayOfCrumbs((arrayOfCrumbs) => [...arrayOfCrumbs, item]);
     }
   }
 
   function handleCategoryButton(category: string) {
-    const indexOfSearchToRemove = arrayOfCrumbs.indexOf('search')
-    if (indexOfSearchToRemove > -1) { 
+    const indexOfSearchToRemove = arrayOfCrumbs.indexOf("search");
+    if (indexOfSearchToRemove > -1) {
       arrayOfCrumbs.splice(indexOfSearchToRemove, 1);
     }
     setPerPage(6);
@@ -167,31 +174,58 @@ export default function TableOfProducts() {
           sx={{ backgroundColor: "#d28e19", borderRadius: "5px" }}
           position="sticky"
         >
-          <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
-            <BreadCrumbsComponent
-              elements={arrayOfCrumbs}
-              handleBreadCrumbClick={handleBreadCrumbClick}
-            />
-            {arrayOfCrumbs.length < 2 ? (
-              <div className="searchbar">
-                <p className="small-line" />
-                <section>
-                  <TextField
-                    id="filled-search"
-                    type="search"
-                    placeholder="search"
-                    onChange={onChangeOfSearchBar}
-                    variant="filled"
+          <Toolbar>
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              <BreadCrumbsComponent
+                elements={arrayOfCrumbs}
+                handleBreadCrumbClick={handleBreadCrumbClick}
+              />
+              {arrayOfCrumbs.length < 2 ? (
+                <Box
+                  sx={{
+                    borderLeft: "#f5f4f4 2px solid",
+                    display: "flex",
+                    marginLeft: "25px",
+                    height: "30px",
+                    marginBottom: "5px",
+                  }}
+                >
+                  <Box sx={{ paddingRight: "10px" }} />
+                  <Box>
+                    <TextField
+                      InputProps={{
+                        sx: { height: "3vh" },
+                      }}
+                      onChange={onChangeOfSearchBar}
+                      placeholder="search"
+                      sx={{
+                        width: "10vh",
+                        height: "3vh",
+                        padding: "0px",
+                        backgroundColor: "white",
+                        borderRadius: "5px",
+                      }}
+                    />
+                  </Box>
+                  <SearchIcon
+                    sx={{
+                      color: "#f7f7f7",
+                      marginTop: "3px",
+                      marginLeft: "5px",
+                    }}
+                    onClick={() => handleSearchProductIcon()}
                   />
-                </section>
-                <SearchIcon
-                  className="search-icon"
-                  onClick={() => handleSearchProductIcon()}
-                />
-              </div>
-            ) : (
-              <div />
-            )}
+                </Box>
+              ) : (
+                <div />
+              )}
+            </Box>
           </Toolbar>
         </AppBar>
       </Box>
@@ -221,9 +255,15 @@ export default function TableOfProducts() {
                         <TableCell sx={{ fontWeight: "700" }}>Brand</TableCell>
                         <TableCell sx={{ fontWeight: "700" }}>Price</TableCell>
                         <TableCell sx={{ fontWeight: "700" }}>Name</TableCell>
-                        <TableCell sx={{ fontWeight: "700" }}>Category</TableCell>
-                        <TableCell sx={{ fontWeight: "700" }}>Thumbnail</TableCell>
-                        <TableCell sx={{ fontWeight: "700" }}>Details</TableCell>
+                        <TableCell sx={{ fontWeight: "700" }}>
+                          Category
+                        </TableCell>
+                        <TableCell sx={{ fontWeight: "700" }}>
+                          Thumbnail
+                        </TableCell>
+                        <TableCell sx={{ fontWeight: "700" }}>
+                          Details
+                        </TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -287,7 +327,6 @@ export default function TableOfProducts() {
                             <Avatar
                               variant="rounded"
                               alt={`Photo of${row.title} `}
-                              className="avatar-style"
                               style={{
                                 width: "90px",
                                 height: "100px",
@@ -334,8 +373,8 @@ export default function TableOfProducts() {
             </Box>
           ) : (
             <>
-              <Typography
-                style={{
+              <Box
+                sx={{
                   display: "grid",
                   justifyContent: "center",
                   padding: "20px",
@@ -353,7 +392,7 @@ export default function TableOfProducts() {
                 >
                   Go Back to products list
                 </Button>
-              </Typography>
+              </Box>
             </>
           )}
           {totalProducts > 1 ? (
