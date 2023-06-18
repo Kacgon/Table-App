@@ -186,7 +186,7 @@ export default function TableOfProducts() {
                 elements={arrayOfCrumbs}
                 handleBreadCrumbClick={handleBreadCrumbClick}
               />
-              {arrayOfCrumbs.length < 2 ? (
+              {arrayOfCrumbs.length < 2 && (
                 <Box
                   sx={{
                     borderLeft: "#f5f4f4 2px solid",
@@ -222,8 +222,6 @@ export default function TableOfProducts() {
                     onClick={() => handleSearchProductIcon()}
                   />
                 </Box>
-              ) : (
-                <div />
               )}
             </Box>
           </Toolbar>
@@ -395,7 +393,7 @@ export default function TableOfProducts() {
               </Box>
             </>
           )}
-          {totalProducts > 1 ? (
+          {totalProducts > 1 && (
             <Box
               sx={{
                 display: "grid",
@@ -418,7 +416,7 @@ export default function TableOfProducts() {
                   ))}
                 </Select>
               </FormControl>
-              {quantityOfPages + 1 >= 2 ? (
+              {quantityOfPages + 1 >= 2 && (
                 <Pagination
                   sx={{ paddingBottom: "10px" }}
                   variant="outlined"
@@ -432,12 +430,8 @@ export default function TableOfProducts() {
                   page={currentPage}
                   onChange={handlePaginationChange}
                 ></Pagination>
-              ) : (
-                <div />
               )}
             </Box>
-          ) : (
-            <div />
           )}
         </>
       )}
