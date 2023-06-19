@@ -1,14 +1,15 @@
-import FooterComponent from './components/Footer';
-import HeaderComponent from './components/Header';
-import TableOfProducts from './components/TableOfProducts';
+import FooterComponent from "./components/Footer";
+import HeaderComponent from "./components/Header";
+import TableOfProducts from "./components/TableOfProducts";
 
 function App() {
-    return (
+  return (
     <>
-    <HeaderComponent />
-    <TableOfProducts />
-    <FooterComponent />
+      <HeaderComponent />
+      <TableOfProducts />
+      <FooterComponent />
     </>
-)};
+  );
+}
 
-export default App
+export default App;

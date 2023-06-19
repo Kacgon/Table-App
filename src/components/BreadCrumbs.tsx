@@ -11,7 +11,6 @@ export default function BreadCrumbsComponent({
   elements,
   handleBreadCrumbClick,
 }: BreadCrumbsComponentProps) {
-  
   return (
     <>
       <Typography variant="h6" component="div">

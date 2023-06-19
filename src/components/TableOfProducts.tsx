@@ -7,13 +7,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import useApiHook from "../hooks/use-api.hook";
 import { Product } from "../models/product";
-import {
-  Box,
-  Button,
-  SelectChangeEvent,
-} from "@mui/material";
+import { Box, Button, SelectChangeEvent } from "@mui/material";
 import { useEffect, useState, ChangeEvent } from "react";
-import Header from "../components/Header";
 import { ProductDetailsComponent } from "../components/ProductDetails";
 import { useNotification } from "../hooks/use-notification.hook";
 import { ToastContainer } from "react-toastify";
@@ -162,7 +157,6 @@ export default function TableOfProducts() {
         pauseOnHover
         theme="colored"
       />
-      <Header />
       <HeaderInfo />
       <Box sx={{ flexGrow: 1, paddingLeft: "20px", paddingRight: "20px" }}>
         <AppBar
@@ -183,8 +177,11 @@ export default function TableOfProducts() {
               />
               {arrayOfCrumbs.length < 2 && (
                 <Box>
-                  <SearchBarComponent onChangeOfSearchBar={onChangeOfSearchBar} handleSearchProductIcon={handleSearchProductIcon}/> 
-               </Box>
+                  <SearchBarComponent
+                    onChangeOfSearchBar={onChangeOfSearchBar}
+                    handleSearchProductIcon={handleSearchProductIcon}
+                  />
+                </Box>
               )}
             </Box>
           </Toolbar>
@@ -240,7 +237,7 @@ export default function TableOfProducts() {
                           }}
                         >
                           <TableCell
-                            sx={{ color: 'inherit' }}
+                            sx={{ color: "inherit" }}
                             component="th"
                             scope="row"
                           >
@@ -248,7 +245,7 @@ export default function TableOfProducts() {
                           </TableCell>
                           <TableCell
                             sx={{
-                              color: 'inherit',
+                              color: "inherit",
                               padding: "0px",
                             }}
                           >
@@ -256,7 +253,7 @@ export default function TableOfProducts() {
                           </TableCell>
                           <TableCell
                             sx={{
-                              color: 'inherit',
+                              color: "inherit",
                               padding: "0px",
                             }}
                           >
@@ -264,7 +261,7 @@ export default function TableOfProducts() {
                           </TableCell>
                           <TableCell
                             sx={{
-                              color: 'inherit',
+                              color: "inherit",
                               padding: "0px",
                             }}
                           >
@@ -272,7 +269,7 @@ export default function TableOfProducts() {
                           </TableCell>
                           <TableCell
                             sx={{
-                              color: 'inherit',
+                              color: "inherit",
                               padding: "0px",
                               cursor: "pointer",
                             }}
@@ -282,7 +279,7 @@ export default function TableOfProducts() {
                           </TableCell>
                           <TableCell
                             sx={{
-                              color: 'inherit',
+                              color: "inherit",
                               padding: "0px",
                             }}
                           >
@@ -299,7 +296,7 @@ export default function TableOfProducts() {
                           </TableCell>
                           <TableCell
                             sx={{
-                              color: 'inherit',
+                              color: "inherit",
                               cursor: "pointer",
                               padding: "0px",
                             }}
@@ -307,7 +304,7 @@ export default function TableOfProducts() {
                             {chosenRow === row.id ? (
                               <Button
                                 sx={{
-                                  color: 'inherit',
+                                  color: "inherit",
                                   border: "1px white solid",
                                 }}
                                 onClick={() =>
@@ -358,8 +355,14 @@ export default function TableOfProducts() {
             </>
           )}
           {totalProducts > 1 && (
-            <PaginationComponent handlePaginationChange={handlePaginationChange} handleRowsChange={handleRowsChange}
-             quantityOfPages={quantityOfPages} currentPage={currentPage} paginationOptions={paginationOptions} perPage={perPage}/>
+            <PaginationComponent
+              handlePaginationChange={handlePaginationChange}
+              handleRowsChange={handleRowsChange}
+              quantityOfPages={quantityOfPages}
+              currentPage={currentPage}
+              paginationOptions={paginationOptions}
+              perPage={perPage}
+            />
           )}
         </>
       )}

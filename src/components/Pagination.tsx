@@ -26,7 +26,6 @@ export default function PaginationComponent({
   currentPage,
   handlePaginationChange,
 }: PaginationComponentProps) {
-    
   return (
     <Box
       sx={{

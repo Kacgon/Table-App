@@ -2,9 +2,9 @@ import { Box, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
 export type SearchBarComponentProps = {
-    onChangeOfSearchBar: (event: { target: { value: any; }; }) => void
-    handleSearchProductIcon: () => void
-  };
+  onChangeOfSearchBar: (event: { target: { value: any } }) => void;
+  handleSearchProductIcon: () => void;
+};
 
 export function SearchBarComponent({
   onChangeOfSearchBar,

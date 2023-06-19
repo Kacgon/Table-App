@@ -19,8 +19,8 @@ export function ProductDetailsComponent({
   const [imgIndex, setImgIndex] = useState(0);
 
   function changeDisplayedImg() {
-    setImgIndex(imgIndex < 2 && imgIndex >= 0 ? imgIndex + 1 : imgIndex -1);
- }
+    setImgIndex(imgIndex < 2 && imgIndex >= 0 ? imgIndex + 1 : imgIndex - 1);
+  }
 
   return (
     <>
