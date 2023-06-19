@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 
-export default function HeaderInfo() {
+export default function HeaderInfoComponent() {
   return (
     <Box
       sx={{ paddingLeft: "20px", paddingTop: "10px", paddingBottom: "10px" }}

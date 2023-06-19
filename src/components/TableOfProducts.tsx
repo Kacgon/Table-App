@@ -12,7 +12,7 @@ import { useEffect, useState, ChangeEvent } from "react";
 import { ProductDetailsComponent } from "../components/ProductDetails";
 import { useNotification } from "../hooks/use-notification.hook";
 import { ToastContainer } from "react-toastify";
-import HeaderInfo from "../components/HeaderInfo";
+import HeaderInfoComponent from "../components/HeaderInfo";
 import { Avatar, Typography } from "@material-ui/core";
 import { AppBar } from "@mui/material";
 import { Toolbar } from "@material-ui/core";
@@ -20,7 +20,7 @@ import BreadCrumbsComponent from "../components/BreadCrumbs";
 import { SearchBarComponent } from "./SearchBar";
 import PaginationComponent from "./Pagination";
 
-export default function TableOfProducts() {
+export default function TableOfProductsComponent() {
   const [chosenRow, setChosenRow] = useState(0);
   const [perPage, setPerPage] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
@@ -157,7 +157,7 @@ export default function TableOfProducts() {
         pauseOnHover
         theme="colored"
       />
-      <HeaderInfo />
+      <HeaderInfoComponent />
       <Box sx={{ flexGrow: 1, paddingLeft: "20px", paddingRight: "20px" }}>
         <AppBar
           sx={{ backgroundColor: "#d28e19", borderRadius: "5px" }}

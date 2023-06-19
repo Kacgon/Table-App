@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import HeaderInfo from "../src/components/HeaderInfo";
+import HeaderInfoComponent from "../src/components/HeaderInfo";
 
 describe("HeaderInfo", () => {
   it("renders correctly HeaderInfo", async () => {
-    const { container } = render(<HeaderInfo />);
+    const { container } = render(<HeaderInfoComponent />);
 
     expect(container.firstChild).toHaveTextContent("Hi! Im Kacper");
   });
