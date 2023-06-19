@@ -16,6 +16,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src"],
+  "include": ["src", "tests/HeaderInfo.test.tsx", "tests/Footer.test.tsx", "tests/Header.test.tsx", "tests/BreadCrumbs.test.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

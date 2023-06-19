@@ -10,13 +10,7 @@ import { Product } from "../models/product";
 import {
   Box,
   Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Pagination,
-  Select,
   SelectChangeEvent,
-  TextField,
 } from "@mui/material";
 import { useEffect, useState, ChangeEvent } from "react";
 import Header from "../components/Header";
@@ -25,10 +19,11 @@ import { useNotification } from "../hooks/use-notification.hook";
 import { ToastContainer } from "react-toastify";
 import HeaderInfo from "../components/HeaderInfo";
 import { Avatar, Typography } from "@material-ui/core";
-import SearchIcon from "@mui/icons-material/Search";
 import { AppBar } from "@mui/material";
 import { Toolbar } from "@material-ui/core";
 import BreadCrumbsComponent from "../components/BreadCrumbs";
+import { SearchBarComponent } from "./SearchBar";
+import { PaginationComponent } from "./Pagination";
 
 export default function TableOfProducts() {
   const [chosenRow, setChosenRow] = useState(0);
@@ -43,8 +38,8 @@ export default function TableOfProducts() {
   const { data, totalProducts } = useApiHook(url);
   const { success, failure } = useNotification();
   const [arrayOfCrumbs, setArrayOfCrumbs] = useState(["Products"]);
-  const paginationOptions = [3, 6, 8];
-  const quantityOfPages = (totalProducts / perPage) >> 0;
+  let paginationOptions = [3, 6, 8];
+  let quantityOfPages = (totalProducts / perPage) >> 0;
   const [searchPhrase, setSearchPhrasePhrase] = useState("empty");
 
   function onChangeOfSearchBar(event: { target: { value: any } }) {
@@ -63,13 +58,13 @@ export default function TableOfProducts() {
   }
 
   const changeBackgroundColorOfSelectedRow = (idToCheck: number) => {
-    if (idToCheck == chosenRow) {
+    if (idToCheck === chosenRow) {
       return "#d28e19";
     }
   };
 
   const changeFontColorOfSelectedRow = (idToCheck: number) => {
-    if (idToCheck == chosenRow) {
+    if (idToCheck === chosenRow) {
       return "white";
     }
   };
@@ -148,7 +143,7 @@ export default function TableOfProducts() {
   }
 
   useEffect(() => {
-    if (data?.length == 0) {
+    if (data?.length === 0) {
       failure("no products with this name");
     }
   }, [data]);
@@ -187,41 +182,9 @@ export default function TableOfProducts() {
                 handleBreadCrumbClick={handleBreadCrumbClick}
               />
               {arrayOfCrumbs.length < 2 && (
-                <Box
-                  sx={{
-                    borderLeft: "#f5f4f4 2px solid",
-                    display: "flex",
-                    marginLeft: "25px",
-                    height: "30px",
-                    marginBottom: "5px",
-                  }}
-                >
-                  <Box sx={{ paddingRight: "10px" }} />
-                  <Box>
-                    <TextField
-                      InputProps={{
-                        sx: { height: "3vh" },
-                      }}
-                      onChange={onChangeOfSearchBar}
-                      placeholder="search"
-                      sx={{
-                        width: "10vh",
-                        height: "3vh",
-                        padding: "0px",
-                        backgroundColor: "white",
-                        borderRadius: "5px",
-                      }}
-                    />
-                  </Box>
-                  <SearchIcon
-                    sx={{
-                      color: "#f7f7f7",
-                      marginTop: "3px",
-                      marginLeft: "5px",
-                    }}
-                    onClick={() => handleSearchProductIcon()}
-                  />
-                </Box>
+                <Box>
+                  <SearchBarComponent onChangeOfSearchBar={onChangeOfSearchBar} handleSearchProductIcon={handleSearchProductIcon}/> 
+               </Box>
               )}
             </Box>
           </Toolbar>
@@ -270,13 +233,14 @@ export default function TableOfProducts() {
                           onClick={() => setChosenRow(row.id)}
                           key={row.id}
                           sx={{
+                            color: changeFontColorOfSelectedRow(row.id),
                             backgroundColor: changeBackgroundColorOfSelectedRow(
                               row.id
                             ),
                           }}
                         >
                           <TableCell
-                            sx={{ color: changeFontColorOfSelectedRow(row.id) }}
+                            sx={{ color: 'inherit' }}
                             component="th"
                             scope="row"
                           >
@@ -284,7 +248,7 @@ export default function TableOfProducts() {
                           </TableCell>
                           <TableCell
                             sx={{
-                              color: changeFontColorOfSelectedRow(row.id),
+                              color: 'inherit',
                               padding: "0px",
                             }}
                           >
@@ -292,7 +256,7 @@ export default function TableOfProducts() {
                           </TableCell>
                           <TableCell
                             sx={{
-                              color: changeFontColorOfSelectedRow(row.id),
+                              color: 'inherit',
                               padding: "0px",
                             }}
                           >
@@ -300,7 +264,7 @@ export default function TableOfProducts() {
                           </TableCell>
                           <TableCell
                             sx={{
-                              color: changeFontColorOfSelectedRow(row.id),
+                              color: 'inherit',
                               padding: "0px",
                             }}
                           >
@@ -308,7 +272,7 @@ export default function TableOfProducts() {
                           </TableCell>
                           <TableCell
                             sx={{
-                              color: changeFontColorOfSelectedRow(row.id),
+                              color: 'inherit',
                               padding: "0px",
                               cursor: "pointer",
                             }}
@@ -318,7 +282,7 @@ export default function TableOfProducts() {
                           </TableCell>
                           <TableCell
                             sx={{
-                              color: changeFontColorOfSelectedRow(row.id),
+                              color: 'inherit',
                               padding: "0px",
                             }}
                           >
@@ -335,7 +299,7 @@ export default function TableOfProducts() {
                           </TableCell>
                           <TableCell
                             sx={{
-                              color: changeFontColorOfSelectedRow(row.id),
+                              color: 'inherit',
                               cursor: "pointer",
                               padding: "0px",
                             }}
@@ -343,7 +307,7 @@ export default function TableOfProducts() {
                             {chosenRow === row.id ? (
                               <Button
                                 sx={{
-                                  color: changeFontColorOfSelectedRow(row.id),
+                                  color: 'inherit',
                                   border: "1px white solid",
                                 }}
                                 onClick={() =>
@@ -394,44 +358,8 @@ export default function TableOfProducts() {
             </>
           )}
           {totalProducts > 1 && (
-            <Box
-              sx={{
-                display: "grid",
-                justifyItems: "center",
-                marginBottom: "10px",
-              }}
-            >
-              <FormControl size="small" sx={{ padding: "5px" }}>
-                <InputLabel sx={{ marginTop: "15px" }}>Rows</InputLabel>
-                <Select
-                  sx={{ marginTop: "15px", marginBottom: "5px" }}
-                  value={perPage}
-                  label={"RowsPerPage"}
-                  onChange={handleRowsChange}
-                >
-                  {paginationOptions.map((option: number) => (
-                    <MenuItem key={option} value={option}>
-                      {option}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              {quantityOfPages + 1 >= 2 && (
-                <Pagination
-                  sx={{ paddingBottom: "10px" }}
-                  variant="outlined"
-                  color="primary"
-                  count={quantityOfPages + 1}
-                  siblingCount={1}
-                  size="small"
-                  hideNextButton
-                  hidePrevButton
-                  boundaryCount={1}
-                  page={currentPage}
-                  onChange={handlePaginationChange}
-                ></Pagination>
-              )}
-            </Box>
+            <PaginationComponent handlePaginationChange={handlePaginationChange} handleRowsChange={handleRowsChange}
+             quantityOfPages={quantityOfPages} currentPage={currentPage} paginationOptions={paginationOptions} perPage={perPage}/>
           )}
         </>
       )}
