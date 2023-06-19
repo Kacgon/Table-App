@@ -23,7 +23,7 @@ import { AppBar } from "@mui/material";
 import { Toolbar } from "@material-ui/core";
 import BreadCrumbsComponent from "../components/BreadCrumbs";
 import { SearchBarComponent } from "./SearchBar";
-import { PaginationComponent } from "./Pagination";
+import PaginationComponent from "./Pagination";
 
 export default function TableOfProducts() {
   const [chosenRow, setChosenRow] = useState(0);

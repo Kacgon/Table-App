@@ -18,7 +18,7 @@ export type PaginationComponentProps = {
   handlePaginationChange: (event: ChangeEvent<unknown>, page: number) => void;
 };
 
-export function PaginationComponent({
+export default function PaginationComponent({
   handleRowsChange,
   perPage,
   paginationOptions,
