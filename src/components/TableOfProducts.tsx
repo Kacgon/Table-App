@@ -5,7 +5,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import useApiHook from "./use-api.hook";
+import useApiHook from "../hooks/use-api.hook";
 import { Product } from "../models/product";
 import {
   Box,
@@ -21,7 +21,7 @@ import {
 import { useEffect, useState, ChangeEvent } from "react";
 import Header from "../components/Header";
 import { ProductDetailsComponent } from "../components/ProductDetails";
-import { useNotification } from "./use-notification.hook";
+import { useNotification } from "../hooks/use-notification.hook";
 import { ToastContainer } from "react-toastify";
 import HeaderInfo from "../components/HeaderInfo";
 import { Avatar, Typography } from "@material-ui/core";
